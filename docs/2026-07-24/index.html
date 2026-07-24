@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>價格行為週報｜07/20–07/24</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@700;900&family=Noto+Sans+TC:wght@400;500;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FAF9F6;
+    --ink:#1C2230;
+    --ink-soft:#5A6272;
+    --hot:#D6453C;        /* 台股紅＝熱錢 */
+    --hot-bg:#FBEDEB;
+    --cold:#2E5F7A;       /* 冷靛＝退潮 */
+    --cold-bg:#E9F1F5;
+    --marker:#FFE58A;     /* 螢光筆 */
+    --line:#E4E1DA;
+    --radius:14px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Noto Sans TC',sans-serif;
+    font-size:17px;
+    line-height:1.85;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:680px;margin:0 auto;padding:0 22px 80px;}
+
+  /* ===== Masthead ===== */
+  header{padding:44px 0 0;}
+  .kicker{
+    font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:.14em;
+    color:var(--ink-soft);text-transform:uppercase;
+    display:flex;justify-content:space-between;align-items:baseline;
+    border-bottom:2px solid var(--ink);padding-bottom:10px;
+  }
+  h1{
+    font-family:'Noto Serif TC',serif;font-weight:900;
+    font-size:clamp(28px,6.4vw,40px);line-height:1.35;
+    margin:26px 0 10px;letter-spacing:.01em;
+  }
+  h1 .hl{background:linear-gradient(transparent 62%,var(--marker) 62%);}
+  .dek{color:var(--ink-soft);font-size:15.5px;margin-bottom:30px;}
+
+  /* ===== 溫度計 signature ===== */
+  .thermo{
+    border:1.5px solid var(--ink);border-radius:var(--radius);
+    padding:20px 20px 16px;margin-bottom:36px;background:#fff;
+  }
+  .thermo-title{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.12em;
+    color:var(--ink-soft);margin-bottom:14px;
+  }
+  .thermo-bar{
+    height:10px;border-radius:5px;
+    background:linear-gradient(90deg,var(--cold) 0%,#8FAFC0 35%,#E8C9A0 65%,var(--hot) 100%);
+    position:relative;margin:26px 6px 34px;
+  }
+  .tick{position:absolute;top:-22px;transform:translateX(-50%);text-align:center;}
+  .tick .dot{width:14px;height:14px;border-radius:50%;border:2.5px solid #fff;
+    box-shadow:0 1px 4px rgba(0,0,0,.25);margin:20px auto 0;}
+  .tick .lab{font-size:12.5px;font-weight:700;white-space:nowrap;
+    font-family:'IBM Plex Mono',monospace;}
+  .thermo-note{font-size:13px;color:var(--ink-soft);}
+
+  /* ===== TL;DR ===== */
+  .tldr{
+    background:var(--ink);color:#F5F3EE;border-radius:var(--radius);
+    padding:24px 24px 18px;margin-bottom:44px;
+  }
+  .tldr h2{font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.15em;
+    color:var(--marker);margin-bottom:14px;font-weight:600;}
+  .tldr ul{list-style:none;}
+  .tldr li{padding:9px 0 9px 30px;position:relative;font-size:15.5px;line-height:1.7;
+    border-bottom:1px solid rgba(255,255,255,.12);}
+  .tldr li:last-child{border-bottom:none;}
+  .tldr li::before{content:attr(data-i);position:absolute;left:0;top:9px;
+    font-family:'IBM Plex Mono',monospace;color:var(--marker);font-weight:600;}
+  .tldr b{color:#fff;}
+
+  /* ===== Sections ===== */
+  section{margin-bottom:52px;}
+  .sec-head{display:flex;align-items:center;gap:12px;margin-bottom:18px;}
+  .temp-tag{
+    font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:600;
+    letter-spacing:.08em;padding:4px 10px;border-radius:999px;flex-shrink:0;
+  }
+  .temp-tag.cold{background:var(--cold-bg);color:var(--cold);}
+  .temp-tag.hot{background:var(--hot-bg);color:var(--hot);}
+  .temp-tag.mix{background:#F3EFE4;color:#8A6D1F;}
+  h2.sec-title{font-family:'Noto Serif TC',serif;font-weight:900;font-size:24px;line-height:1.4;}
+  p{margin-bottom:16px;}
+  p b{font-weight:700;}
+  .punch{
+    font-family:'Noto Serif TC',serif;font-weight:700;font-size:19px;line-height:1.7;
+    border-left:4px solid var(--marker);padding:6px 0 6px 18px;margin:24px 0;
+  }
+
+  /* key levels */
+  .levels{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0 4px;}
+  .level{
+    border:1.5px solid var(--line);border-radius:10px;background:#fff;
+    padding:10px 14px;font-size:14px;flex:1;min-width:150px;
+  }
+  .level .dir{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;
+    display:block;margin-bottom:2px;}
+  .level.up .dir{color:var(--hot);}
+  .level.down .dir{color:var(--cold);}
+  .level .px{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:16px;}
+
+  /* roster */
+  .roster{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:6px;}
+  @media(max-width:520px){.roster{grid-template-columns:1fr;}}
+  .roster-col{border-radius:var(--radius);padding:18px 18px 14px;}
+  .roster-col.hot{background:var(--hot-bg);}
+  .roster-col.cold{background:var(--cold-bg);}
+  .roster-col h3{font-size:15px;margin-bottom:10px;}
+  .roster-col.hot h3{color:var(--hot);}
+  .roster-col.cold h3{color:var(--cold);}
+  .roster-col ul{list-style:none;font-size:14.5px;}
+  .roster-col li{padding:5px 0;border-bottom:1px dashed rgba(0,0,0,.1);}
+  .roster-col li:last-child{border-bottom:none;}
+  .roster-col .tk{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:13px;}
+  .roster-note{font-size:13px;color:var(--ink-soft);margin-top:12px;}
+
+  /* watchlist */
+  .watch{counter-reset:w;list-style:none;}
+  .watch li{
+    counter-increment:w;position:relative;padding:14px 0 14px 44px;
+    border-bottom:1px solid var(--line);font-size:15.5px;
+  }
+  .watch li::before{
+    content:counter(w,decimal-leading-zero);position:absolute;left:0;top:16px;
+    font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;color:var(--hot);
+  }
+
+  /* poll */
+  .poll{background:#fff;border:1.5px solid var(--ink);border-radius:var(--radius);
+    padding:26px 24px;margin-top:8px;}
+  .poll h2{font-family:'Noto Serif TC',serif;font-weight:900;font-size:22px;margin-bottom:6px;}
+  .poll .q{color:var(--ink-soft);font-size:15px;margin-bottom:18px;}
+  .opt{
+    display:block;width:100%;text-align:left;background:var(--paper);
+    border:1.5px solid var(--line);border-radius:10px;
+    padding:13px 16px;margin-bottom:10px;font-size:15px;font-family:inherit;
+    cursor:pointer;transition:all .15s;line-height:1.6;
+  }
+  .opt:hover{border-color:var(--ink);transform:translateX(3px);}
+  .opt .key{font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--hot);margin-right:8px;}
+  .poll-cta{font-size:14px;color:var(--ink-soft);margin-top:14px;}
+
+  /* charts */
+  figure.chart{margin:22px 0 6px;}
+  figure.chart img{
+    width:100%;display:block;border:1.5px solid var(--line);
+    border-radius:10px;background:#fff;
+  }
+  figure.chart figcaption{
+    font-size:13px;color:var(--ink-soft);margin-top:8px;line-height:1.7;
+  }
+  figure.chart figcaption .cap-tag{
+    font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;
+    color:var(--hot);margin-right:6px;letter-spacing:.06em;
+  }
+
+  footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);
+    font-size:12.5px;color:var(--ink-soft);line-height:1.8;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="kicker"><span>價格行為週報 VOL.01</span><span>2026.07.20 – 07.24</span></div>
+  <h1>美股在遲疑、BTC 在偷偷爬?<br>本週市場的<span class="hl">「溫差」</span>還沒退</h1>
+  <p class="dek">同一個地球,兩種行情。錢沒有消失,只是換了地方——這期用 3 分鐘帶你看懂錢往哪走。</p>
+</header>
+
+<div class="thermo">
+  <div class="thermo-title">本週資金溫度計 ── 誰熱、誰冷,一眼看完</div>
+  <div class="thermo-bar">
+    <div class="tick" style="left:8.0%"><span class="lab" style="color:var(--cold)">非必需消費</span><div class="dot" style="background:var(--cold)"></div></div>
+    <div class="tick" style="left:52.7%"><span class="lab" style="color:var(--cold)">不動產</span><div class="dot" style="background:var(--cold)"></div></div>
+    <div class="tick" style="left:76.8%"><span class="lab" style="color:var(--hot)">BTC</span><div class="dot" style="background:var(--hot)"></div></div>
+    <div class="tick" style="left:90.0%"><span class="lab" style="color:var(--hot)">能源</span><div class="dot" style="background:var(--hot)"></div></div>
+  </div>
+  <div class="thermo-note">依本週相對大盤強弱排列。能源本週最熱,非必需消費本週最冷。</div>
+</div>
+
+<div class="tldr">
+  <h2>⏱ 30 秒 TL;DR</h2>
+  <ul>
+    <li data-i="01">🇺🇸 <b>美股轉弱</b>:S&amp;P 500 跌破 50 日均線,收在本週最低點附近——買盤想拉,拉不動</li>
+    <li data-i="02">🪙 <b>BTC 逆勢 +2.25%</b>:低點越墊越高,而且是在「沒人相信」的狀態下漲的</li>
+    <li data-i="03">🔄 <b>資金大搬家</b>:能源股本週贏大盤 3.64 個百分點,非必需消費被倒到懷疑人生(特斯拉本週 -16.06%!)</li>
+    <li data-i="04">👀 <b>下週關鍵</b>:SPY 能不能站回 745(50日線)、BTC 能不能攻破本週高點 66,910</li>
+  </ul>
+</div>
+
+<section>
+  <div class="sec-head">
+    <span class="temp-tag cold">轉冷 COOLING</span>
+    <h2 class="sec-title">🇺🇸 美股:表面小跌,體感很冷</h2>
+  </div>
+<p>指數看起來只跌了 0.69%,好像沒什麼?但魔鬼在細節裡。</p>
+<p>本週 S&amp;P 500 的高點比上週低、低點也比上週低——用白話說就是:<b>想漲漲不上去,想守守不太住</b>。而且收盤收在本週價格區間的最下面 20%,等於整週的買盤到了週四全被賣壓打回票。</p>
+<p>更有感的是科技股:QQQ 已經跌到離 50 日均線 -3.73%,距離前高回檔了 7.57%。<b>你手上的科技股最近很難賺,不是錯覺。</b></p>
+<p>反而是常常被罵「牛皮」的小型股(羅素2000)這週最抗跌,還站在 50 日均線上方。</p>
+
+  <div class="levels">
+    <div class="level up"><span class="dir">▲ 大格局壓力</span><span class="px">760.4</span>(52週高)</div>
+    <div class="level down"><span class="dir">▼ 大格局支撐</span><span class="px">619.29</span>(52週低)</div>
+    <div class="level up"><span class="dir">◎ 下週先盯這裡</span><span class="px">745.05</span>(50日線)</div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="temp-tag mix">回溫中 WARMING</span>
+    <h2 class="sec-title">🪙 BTC:終於有點「底部的味道」?</h2>
+  </div>
+<p>先講結論:<b>短線在修復,長線還沒翻多</b>,別急著梭哈。</p>
+<p>好消息是,BTC 這週 +2.25%,而且低點一次比一次高——這是「有人在低接」的痕跡。價格也站回了 50 日均線上方。</p>
+<p>更有趣的是資金費率目前是<b>負的</b>。翻成白話:市場上做空的人還在付錢給做多的人,代表這波反彈<b>根本沒人相信</b>。</p>
+<div class="punch">歷史上,「在懷疑中上漲」的行情,往往比「大家都喊衝」的行情走得更遠。</div>
+<p>但潑個冷水:BTC 距離 200 日均線還差 9.95%,距離前高更是還有 34.5%。現在的定位是「熊市裡的修復段」,把它當反彈做,別當牛市做。</p>
+
+  <div class="levels">
+    <div class="level up"><span class="dir">▲ 本週高點</span><span class="px">66,910.06</span></div>
+    <div class="level down"><span class="dir">▼ 本週低點</span><span class="px">63,720.39</span></div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="temp-tag hot">最熱話題 HOT</span>
+    <h2 class="sec-title">🔄 資金輪動:錢沒有離開,只是搬家了</h2>
+  </div>
+<p>這是本週最精彩的一段。指數只小跌,但底下的資金流向超級誇張:</p>
+<p><b>💰 錢跑去哪:能源股。</b>本週贏大盤 3.64 個百分點,3 週下來贏大盤 12.46 個百分點——這不是一日行情,是有人在有計畫地建倉。而且是埃克森美孚、西方石油這種大型油商<b>全面開花</b>,不是單一妖股在拉。公用事業(最無聊的防禦股)這週也悄悄排進前段班。</p>
+<p><b>💸 錢從哪逃:非必需消費。</b>本週輸大盤 5.1 個百分點,3 週下來輸大盤 6.25 個百分點。最慘的是<b>特斯拉,本週 -16.06%</b>——一週跌掉別人一年的漲幅。而且不是它一個人的問題,連 Chipotle、Nike 這種「穩」的都在跌。翻成白話:<b>市場在用鈔票投票說「我擔心大家要開始省錢了」。</b></p>
+<div class="punch">一句話總結:指數還沒跌,但聰明錢已經穿好防彈衣了。</div>
+
+  <div class="roster">
+    <div class="roster-col hot">
+      <h3>🔥 能源|走得穩的</h3>
+      <ul>
+        <li><span class="tk">XOM</span> 本週 +6.5%</li>
+        <li><span class="tk">OXY</span> 本週 +5.0%</li>
+        <li><span class="tk">COP</span> 本週 +4.8%</li>
+        <li><span class="tk">EOG</span> 本週 +4.0%</li>
+        <li><span class="tk">CVX</span> 本週 +3.8%</li>
+      </ul>
+    </div>
+    <div class="roster-col cold">
+      <h3>🧊 非必需消費|正在被倒貨的</h3>
+      <ul>
+        <li><span class="tk">TSLA</span> 本週 -16.1%</li>
+        <li><span class="tk">CMG</span> 本週 -7.1%</li>
+        <li><span class="tk">NKE</span> 本週 -6.3%</li>
+        <li><span class="tk">AMZN</span> 本週 -5.5%</li>
+        <li><span class="tk">BKNG</span> 本週 -4.9%</li>
+      </ul>
+    </div>
+  </div>
+  <p class="roster-note">名單依本週相對表現排序,只列方向、不列進出場建議。想知道某一檔的關鍵價位,留言點名。</p>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="temp-tag mix">下週劇本 NEXT</span>
+    <h2 class="sec-title">👀 下週怎麼看</h2>
+  </div>
+  <ul class="watch">
+    <li>SPY 若收復 745(50日線)→ 虛驚一場;連續收不回 → 修正加深</li>
+    <li>BTC 本週高點 66,910 是下一道關卡——突破時盯資金費率,若瞬間轉正暴衝,小心短線過熱;跌破本週低點 63,720 則修復暫告段落</li>
+    <li>能源股這週剛登頂,下週能不能連 2 週霸榜?會的話,這就是下半年的主線之一</li>
+    <li>非必需消費若持續破位,「經濟軟著陸」的劇本要重新評估</li>
+  </ul>
+</section>
+
+<div class="poll">
+  <h2>💬 換你說說</h2>
+  <p class="q">本週的「溫差行情」你站哪邊?</p>
+  <button class="opt"><span class="key">A</span>美股只是洗盤,下週就回去創新高</button>
+  <button class="opt"><span class="key">B</span>資金轉防禦是警訊,先降風險再說</button>
+  <button class="opt"><span class="key">C</span>不管美股,BTC 這個底我先埋伏了</button>
+  <p class="poll-cta">留言告訴我你選哪個+為什麼,下週我挑幾個留言來聊 👇<br>另外:<b>你希望下週多分析哪個標的?</b>留言點菜,票多的加菜。</p>
+</div>
+
+<footer>
+  ⚠️ 以上為 AI 輔助之數據分析與個人觀察,僅供教育參考,不構成任何投資建議。行情有風險,買賣自負責,做好風控最重要。<br>
+  數據截至:美股 7/23(四)收盤、BTC 為即時價。
+</footer>
+
+</div>
+</body>
+</html>
