@@ -88,6 +88,12 @@ def compute_index_metrics(ticker, daily=None):
 
 
 def fetch_funding_rate():
+    """
+    OKX 回傳兩個費率:
+    - fundingRate:當前預測值,結算前會一直跳動,可能中途翻負
+    - settFundingRate:上一次「實際結算/真的收走」的費率,才是真正收付方向
+    敘事只能用 settFundingRate 判斷多空是誰在付錢,fundingRate 只能當「當下情緒」的參考。
+    """
     try:
         r = requests.get(
             config.OKX_FUNDING_URL,
@@ -96,11 +102,13 @@ def fetch_funding_rate():
             impersonate="chrome",
         )
         r.raise_for_status()
-        raw = float(r.json()["data"][0]["fundingRate"])
-        return round(raw * 100, 4)  # 轉成百分比數字
+        data = r.json()["data"][0]
+        settled = float(data["settFundingRate"])
+        current = float(data["fundingRate"])
+        return round(settled * 100, 4), round(current * 100, 4)
     except Exception as e:
         print(f"[warn] OKX 資金費率抓取失敗: {e}", file=sys.stderr)
-        return None
+        return None, None
 
 
 def fetch_btcd():
@@ -207,7 +215,7 @@ def main():
     indices.append(btc_metrics)
 
     print("抓資金費率 / BTC.D ...")
-    funding = fetch_funding_rate()
+    funding_settled, funding_current = fetch_funding_rate()
     btcd = fetch_btcd()
 
     history = load_history()
@@ -233,9 +241,14 @@ def main():
 
     datapack = {
         "week": f"{monday:%Y-%m-%d}/{friday:%Y-%m-%d}",
-        "data_note": "美股至最近收盤;BTC 即時",
+        "data_note": "美股至最近收盤；BTC 即時",
         "indices": indices,
-        "btc_extra": {"funding": funding, "btcd": btcd, "btcd_chg": btcd_chg},
+        "btc_extra": {
+            "funding": funding_settled,  # 上一次「實際結算」的費率,判斷多空是誰在付錢要用這個
+            "funding_current": funding_current,  # 當前預測值,結算前會一直跳動,僅供參考走勢
+            "btcd": btcd,
+            "btcd_chg": btcd_chg,
+        },
         "sector_rs": sector_rs,
         "leaders": leaders,
         "laggards": laggards,

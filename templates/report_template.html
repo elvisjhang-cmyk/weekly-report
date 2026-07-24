@@ -106,6 +106,14 @@
   .roster-col .tk{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:13px;}
   .roster-note{font-size:13px;color:var(--ink-soft);margin-top:12px;}
 
+  /* rotation bullets */
+  .bullets{list-style:none;margin:6px 0 20px;}
+  .bullets li{position:relative;padding:5px 0 5px 22px;font-size:16px;line-height:1.75;}
+  .bullets li::before{content:"●";position:absolute;left:0;top:11px;font-size:7px;color:var(--ink-soft);}
+  .bullets.hot li::before{color:var(--hot);}
+  .bullets.cold li::before{color:var(--cold);}
+  .bullets-head{font-weight:700;margin-bottom:2px;}
+
   /* watchlist */
   .watch{counter-reset:w;list-style:none;}
   .watch li{
@@ -203,7 +211,7 @@
 <section>
   <div class="sec-head">
     <span class="temp-tag hot">最熱話題 HOT</span>
-    <h2 class="sec-title">🔄 資金輪動:錢沒有離開,只是搬家了</h2>
+    <h2 class="sec-title">🔄 資金輪動：錢沒有離開，只是搬家了</h2>
   </div>
 {{rotation_body}}
 
@@ -221,7 +229,7 @@
       </ul>
     </div>
   </div>
-  <p class="roster-note">名單依本週相對表現排序,只列方向、不列進出場建議。想知道某一檔的關鍵價位,留言點名。</p>
+  <p class="roster-note">名單依本週相對表現排序，只列方向、不列進出場建議。想知道某一檔的關鍵價位，留言點名。</p>
 </section>
 
 <section>
@@ -238,12 +246,12 @@
   <h2>💬 換你說說</h2>
   <p class="q">{{poll_question}}</p>
 {{poll_options}}
-  <p class="poll-cta">留言告訴我你選哪個+為什麼,下週我挑幾個留言來聊 👇<br>另外:<b>你希望下週多分析哪個標的?</b>留言點菜,票多的加菜。</p>
+  <p class="poll-cta">留言告訴我你選哪個+為什麼，下週我挑幾個留言來聊 👇<br>另外：<b>你希望下週多分析哪個標的？</b>留言點菜，票多的加菜。</p>
 </div>
 
 <footer>
-  ⚠️ 以上為 AI 輔助之數據分析與個人觀察,僅供教育參考,不構成任何投資建議。行情有風險,買賣自負責,做好風控最重要。<br>
-  數據截至:{{footer_note}}。
+  ⚠️ 以上為 AI 輔助之數據分析與個人觀察，僅供教育參考，不構成任何投資建議。行情有風險，買賣自負責，做好風控最重要。<br>
+  數據截至：{{footer_note}}。
 </footer>
 
 </div>

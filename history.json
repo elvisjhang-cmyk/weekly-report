@@ -1,15 +1,15 @@
 {
   "sector_rank_history": {
     "XLE": {
-      "top3_streak": 1,
+      "top3_streak": 2,
       "bottom3_streak": 0
     },
     "XLU": {
-      "top3_streak": 1,
+      "top3_streak": 2,
       "bottom3_streak": 0
     },
     "XLK": {
-      "top3_streak": 1,
+      "top3_streak": 2,
       "bottom3_streak": 0
     },
     "XLI": {
@@ -34,18 +34,18 @@
     },
     "XLP": {
       "top3_streak": 0,
-      "bottom3_streak": 1
+      "bottom3_streak": 2
     },
     "XLC": {
       "top3_streak": 0,
-      "bottom3_streak": 1
+      "bottom3_streak": 2
     },
     "XLY": {
       "top3_streak": 0,
-      "bottom3_streak": 1
+      "bottom3_streak": 2
     }
   },
-  "btcd_last": 56.84,
+  "btcd_last": 56.83,
   "vol": 1,
   "vol_by_week": {
     "2026-07-24": 1
