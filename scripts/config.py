@@ -34,3 +34,19 @@ COINGECKO_GLOBAL_URL = "https://api.coingecko.com/api/v3/global"
 
 HISTORY_FILE = "history.json"
 DATAPACK_FILE = "datapack.json"
+
+# 個股 logo 用的公司網域(給 Google favicon 服務查圖標,logo.clearbit.com 已經停用/DNS 解不到,改用這個)
+# 先補目前有點名到的幾檔,之後換到別的板塊、名單上出現新股票再補進來即可,
+# 沒補到的股票 build_roster() 會自動跳過圖標、只顯示文字。
+TICKER_DOMAINS = {
+    "XOM": "exxonmobil.com",
+    "OXY": "oxy.com",
+    "COP": "www.conocophillips.com",
+    "EOG": "eogresources.com",
+    "CVX": "chevron.com",
+    "TSLA": "tesla.com",
+    "CMG": "chipotle.com",
+    "NKE": "nike.com",
+    "AMZN": "amazon.com",
+    "BKNG": "booking.com",
+}

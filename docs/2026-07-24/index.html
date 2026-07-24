@@ -101,8 +101,9 @@
   .roster-col.hot h3{color:var(--hot);}
   .roster-col.cold h3{color:var(--cold);}
   .roster-col ul{list-style:none;font-size:14.5px;}
-  .roster-col li{padding:5px 0;border-bottom:1px dashed rgba(0,0,0,.1);}
+  .roster-col li{padding:5px 0;border-bottom:1px dashed rgba(0,0,0,.1);display:flex;align-items:center;gap:8px;}
   .roster-col li:last-child{border-bottom:none;}
+  .roster-col .logo{width:18px;height:18px;border-radius:4px;object-fit:contain;background:#fff;flex-shrink:0;}
   .roster-col .tk{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:13px;}
   .roster-note{font-size:13px;color:var(--ink-soft);margin-top:12px;}
 
@@ -240,21 +241,21 @@
     <div class="roster-col hot">
       <h3>能源|走得穩的</h3>
       <ul>
-        <li><span class="tk">XOM</span> 本週 +6.5%</li>
-        <li><span class="tk">OXY</span> 本週 +5.0%</li>
-        <li><span class="tk">COP</span> 本週 +4.8%</li>
-        <li><span class="tk">EOG</span> 本週 +4.0%</li>
-        <li><span class="tk">CVX</span> 本週 +3.8%</li>
+        <li><img class="logo" src="https://www.google.com/s2/favicons?domain=exxonmobil.com&sz=64" alt="" onerror="this.remove()"><span class="tk">XOM</span> 本週 +6.5%</li>
+        <li><img class="logo" src="https://www.google.com/s2/favicons?domain=oxy.com&sz=64" alt="" onerror="this.remove()"><span class="tk">OXY</span> 本週 +5.0%</li>
+        <li><img class="logo" src="https://www.google.com/s2/favicons?domain=www.conocophillips.com&sz=64" alt="" onerror="this.remove()"><span class="tk">COP</span> 本週 +4.8%</li>
+        <li><img class="logo" src="https://www.google.com/s2/favicons?domain=eogresources.com&sz=64" alt="" onerror="this.remove()"><span class="tk">EOG</span> 本週 +4.0%</li>
+        <li><img class="logo" src="https://www.google.com/s2/favicons?domain=chevron.com&sz=64" alt="" onerror="this.remove()"><span class="tk">CVX</span> 本週 +3.8%</li>
       </ul>
     </div>
     <div class="roster-col cold">
       <h3>非必需消費|正在被倒貨的</h3>
       <ul>
-        <li><span class="tk">TSLA</span> 本週 -16.1%</li>
-        <li><span class="tk">CMG</span> 本週 -7.1%</li>
-        <li><span class="tk">NKE</span> 本週 -6.3%</li>
-        <li><span class="tk">AMZN</span> 本週 -5.5%</li>
-        <li><span class="tk">BKNG</span> 本週 -4.9%</li>
+        <li><img class="logo" src="https://www.google.com/s2/favicons?domain=tesla.com&sz=64" alt="" onerror="this.remove()"><span class="tk">TSLA</span> 本週 -16.1%</li>
+        <li><img class="logo" src="https://www.google.com/s2/favicons?domain=chipotle.com&sz=64" alt="" onerror="this.remove()"><span class="tk">CMG</span> 本週 -7.1%</li>
+        <li><img class="logo" src="https://www.google.com/s2/favicons?domain=nike.com&sz=64" alt="" onerror="this.remove()"><span class="tk">NKE</span> 本週 -6.3%</li>
+        <li><img class="logo" src="https://www.google.com/s2/favicons?domain=amazon.com&sz=64" alt="" onerror="this.remove()"><span class="tk">AMZN</span> 本週 -5.5%</li>
+        <li><img class="logo" src="https://www.google.com/s2/favicons?domain=booking.com&sz=64" alt="" onerror="this.remove()"><span class="tk">BKNG</span> 本週 -4.9%</li>
       </ul>
     </div>
   </div>

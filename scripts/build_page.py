@@ -69,7 +69,13 @@ def build_roster(stocks):
     lines = []
     for s in stocks:
         name = s["t"]
-        lines.append(f'        <li><span class="tk">{name}</span> 本週 {s["w"]:+.1f}%</li>')
+        domain = config.TICKER_DOMAINS.get(name)
+        logo = (
+            f'<img class="logo" src="https://www.google.com/s2/favicons?domain={domain}&sz=64" alt="" '
+            f'onerror="this.remove()">'
+            if domain else ""
+        )
+        lines.append(f'        <li>{logo}<span class="tk">{name}</span> 本週 {s["w"]:+.1f}%</li>')
     return "\n".join(lines)
 
 
