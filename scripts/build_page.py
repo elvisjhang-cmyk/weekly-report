@@ -51,7 +51,12 @@ def build_us_levels(spy):
     )
 
 
-def build_btc_levels(btc):
+def build_btc_levels(btc, override=None):
+    if override:
+        return (
+            f'    <div class="level up"><span class="dir">▲ {override["up_label"]}</span><span class="px">{override["up_value"]}</span></div>\n'
+            f'    <div class="level down"><span class="dir">▼ {override["down_label"]}</span><span class="px">{override["down_value"]}</span></div>'
+        )
     lv = btc["levels"]
     return (
         f'    <div class="level up"><span class="dir">▲ 本週高點</span><span class="px">{fmt_price(lv["wk_hi"])}</span></div>\n'
@@ -156,7 +161,7 @@ def main():
         "btc_tag_label": narrative["btc_tag_label"],
         "btc_title": narrative["btc_title"],
         "btc_body": build_body(narrative["btc_body"]),
-        "btc_levels": build_btc_levels(btc),
+        "btc_levels": build_btc_levels(btc, narrative.get("btc_levels_override")),
         "rotation_body": build_body(narrative["rotation_body"]),
         "roster_hot_title": f'{config.SECTOR_NAMES[datapack["leaders"]["sector"]]}|走得穩的',
         "roster_hot": build_roster(datapack["leaders"]["stocks"]),
