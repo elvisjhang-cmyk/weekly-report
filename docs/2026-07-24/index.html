@@ -46,27 +46,6 @@
   h1 .hl{background:linear-gradient(transparent 62%,var(--marker) 62%);}
   .dek{color:var(--ink-soft);font-size:15.5px;margin-bottom:30px;}
 
-  /* ===== 溫度計 signature ===== */
-  .thermo{
-    border:1.5px solid var(--ink);border-radius:var(--radius);
-    padding:20px 20px 16px;margin-bottom:36px;background:#fff;
-  }
-  .thermo-title{
-    font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.12em;
-    color:var(--ink-soft);margin-bottom:14px;
-  }
-  .thermo-bar{
-    height:10px;border-radius:5px;
-    background:linear-gradient(90deg,var(--cold) 0%,#8FAFC0 35%,#E8C9A0 65%,var(--hot) 100%);
-    position:relative;margin:26px 6px 34px;
-  }
-  .tick{position:absolute;top:-22px;transform:translateX(-50%);text-align:center;}
-  .tick .dot{width:14px;height:14px;border-radius:50%;border:2.5px solid #fff;
-    box-shadow:0 1px 4px rgba(0,0,0,.25);margin:20px auto 0;}
-  .tick .lab{font-size:12.5px;font-weight:700;white-space:nowrap;
-    font-family:'IBM Plex Mono',monospace;}
-  .thermo-note{font-size:13px;color:var(--ink-soft);}
-
   /* ===== TL;DR ===== */
   .tldr{
     background:var(--ink);color:#F5F3EE;border-radius:var(--radius);
@@ -180,24 +159,13 @@
   <p class="dek">同一個地球,兩種行情。錢沒有消失,只是換了地方——這期用 3 分鐘帶你看懂錢往哪走。</p>
 </header>
 
-<div class="thermo">
-  <div class="thermo-title">本週資金溫度計 ── 誰熱、誰冷,一眼看完</div>
-  <div class="thermo-bar">
-    <div class="tick" style="left:8.0%"><span class="lab" style="color:var(--cold)">非必需消費</span><div class="dot" style="background:var(--cold)"></div></div>
-    <div class="tick" style="left:52.7%"><span class="lab" style="color:var(--cold)">不動產</span><div class="dot" style="background:var(--cold)"></div></div>
-    <div class="tick" style="left:76.8%"><span class="lab" style="color:var(--hot)">BTC</span><div class="dot" style="background:var(--hot)"></div></div>
-    <div class="tick" style="left:90.0%"><span class="lab" style="color:var(--hot)">能源</span><div class="dot" style="background:var(--hot)"></div></div>
-  </div>
-  <div class="thermo-note">依本週相對大盤強弱排列。能源本週最熱,非必需消費本週最冷。</div>
-</div>
-
 <div class="tldr">
-  <h2>⏱ 30 秒 TL;DR</h2>
+  <h2>30秒 重點整理</h2>
   <ul>
-    <li data-i="01">🇺🇸 <b>美股轉弱</b>:S&amp;P 500 跌破 50 日均線,收在本週最低點附近——買盤想拉,拉不動</li>
-    <li data-i="02">🪙 <b>BTC 逆勢 +2.25%</b>:低點越墊越高,而且是在「沒人相信」的狀態下漲的</li>
-    <li data-i="03">🔄 <b>資金大搬家</b>:能源股本週贏大盤 3.64 個百分點,非必需消費被倒到懷疑人生(特斯拉本週 -16.06%!)</li>
-    <li data-i="04">👀 <b>下週關鍵</b>:SPY 能不能站回 745(50日線)、BTC 能不能攻破本週高點 66,910</li>
+    <li data-i="01"><b>美股體感很冷</b>:S&amp;P 500 跌破 50 日均線,收在本週最低點附近——買盤想拉,拉不動</li>
+    <li data-i="02"><b>BTC 終於有點底部的味道</b>:低點越墊越高,而且是在「沒人相信」的狀態下漲的</li>
+    <li data-i="03"><b>聰明錢已經在搬家</b>:能源股本週贏大盤 3.64 個百分點,非必需消費被倒到懷疑人生(特斯拉本週 -16.06%!)</li>
+    <li data-i="04"><b>下週關鍵</b>:SPY 能不能站回 745(50日線)、BTC 能不能攻破本週高點 66,910</li>
   </ul>
 </div>
 

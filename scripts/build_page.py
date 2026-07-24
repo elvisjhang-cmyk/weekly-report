@@ -59,39 +59,6 @@ def build_btc_levels(btc):
     )
 
 
-def build_thermo_ticks(sector_rs, btc_wk_ret):
-    combined = [{"label": config.SECTOR_NAMES[r["s"]], "heat": r["r1"]} for r in sector_rs]
-    combined.append({"label": "BTC", "heat": btc_wk_ret})
-    heats = [c["heat"] for c in combined]
-    lo, hi = min(heats), max(heats)
-    span = hi - lo if hi != lo else 1.0
-
-    def pos(h):
-        return round(8 + (h - lo) / span * 82, 1)
-
-    for c in combined:
-        c["pos"] = pos(c["heat"])
-
-    coldest = min(combined, key=lambda c: c["heat"])
-    hottest = max(combined, key=lambda c: c["heat"])
-    btc_pt = next(c for c in combined if c["label"] == "BTC")
-    mid_target = (coldest["pos"] + hottest["pos"]) / 2
-    remaining = [c for c in combined if c not in (coldest, hottest, btc_pt)]
-    mid = min(remaining, key=lambda c: abs(c["pos"] - mid_target)) if remaining else btc_pt
-
-    picks = sorted({id(coldest): coldest, id(mid): mid, id(btc_pt): btc_pt, id(hottest): hottest}.values(),
-                   key=lambda c: c["pos"])
-
-    lines = []
-    for c in picks:
-        color = "var(--hot)" if c["heat"] > 0 else "var(--cold)" if c["heat"] < 0 else "#8A6D1F"
-        lines.append(
-            f'    <div class="tick" style="left:{c["pos"]}%"><span class="lab" style="color:{color}">{c["label"]}</span>'
-            f'<div class="dot" style="background:{color}"></div></div>'
-        )
-    return "\n".join(lines)
-
-
 def build_roster(stocks):
     lines = []
     for s in stocks:
@@ -149,14 +116,19 @@ def main():
     narrative = load_json("narrative.json")
     history = load_history()
 
-    vol_num = history.get("vol", 0) + 1
-    history["vol"] = vol_num
-    save_history(history)
-
     spy = next(i for i in datapack["indices"] if i["symbol"] == "SPY")
     btc = next(i for i in datapack["indices"] if i["symbol"] == "BTC")
 
     start_str, end_str = datapack["week"].split("/")
+
+    # vol 編號綁定「這一週」,同一週重新 build(改稿)不會往上加
+    vol_by_week = history.setdefault("vol_by_week", {})
+    if end_str not in vol_by_week:
+        vol_by_week[end_str] = history.get("vol", 0) + 1
+        history["vol"] = vol_by_week[end_str]
+    vol_num = vol_by_week[end_str]
+    save_history(history)
+
     start_dt = datetime.strptime(start_str, "%Y-%m-%d")
     end_dt = datetime.strptime(end_str, "%Y-%m-%d")
     date_range = f"{start_dt:%Y.%m.%d} – {end_dt:%m.%d}"
@@ -174,8 +146,6 @@ def main():
         "date_range_short": date_range_short,
         "headline": narrative["headline"],
         "dek": narrative["dek"],
-        "thermo_ticks": build_thermo_ticks(datapack["sector_rs"], btc["wk_ret"]),
-        "thermo_note": narrative["thermo_note"],
         "tldr_items": build_tldr(narrative["tldr_items"]),
         "us_tag_class": narrative["us_tag_class"],
         "us_tag_label": narrative["us_tag_label"],
