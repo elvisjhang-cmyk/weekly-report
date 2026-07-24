@@ -6,6 +6,7 @@ narrative.json 負責:標題/內文/下週劇本/投票(這一份先由人工或
 """
 import json
 import os
+import shutil
 import sys
 from datetime import datetime
 
@@ -102,12 +103,17 @@ def strip_block(html, start_marker, end_marker):
     return html[:start] + html[end + len(end_marker):]
 
 
-def fill_chart_block(html, tag, chart_filename, narrative, root_key):
+def fill_chart_block(html, tag, chart_filename, narrative, root_key, out_dir):
+    """
+    GitHub Pages 只發布 docs/ 底下的內容,charts/ 在 repo 根目錄不會被發布,
+    所以圖片要複製進當週的輸出資料夾,用同目錄的檔名參照,不能用 ../charts/ 這種路徑。
+    """
     start_marker = f"<!--CHART_{tag}_START-->"
     end_marker = f"<!--CHART_{tag}_END-->"
     chart_path = os.path.join(CHARTS_DIR, chart_filename)
     if not os.path.exists(chart_path):
         return strip_block(html, start_marker, end_marker)
+    shutil.copyfile(chart_path, os.path.join(out_dir, chart_filename))
     html = html.replace(start_marker, "").replace(end_marker, "")
     html = html.replace(f"{{{{chart_{root_key}_file}}}}", chart_filename)
     html = html.replace(f"{{{{chart_{root_key}_alt}}}}", narrative.get(f"chart_{root_key}_alt", ""))
@@ -139,11 +145,14 @@ def main():
     date_range = f"{start_dt:%Y.%m.%d} – {end_dt:%m.%d}"
     date_range_short = f"{start_dt:%m/%d}–{end_dt:%m/%d}"
 
+    out_dir = os.path.join(DOCS_DIR, end_str)
+    os.makedirs(out_dir, exist_ok=True)
+
     with open(TEMPLATE_PATH, "r", encoding="utf-8") as f:
         html = f.read()
 
-    html = fill_chart_block(html, "US", "spy_chart.png", narrative, "us")
-    html = fill_chart_block(html, "BTC", "btc_chart.png", narrative, "btc")
+    html = fill_chart_block(html, "US", "spy_chart.png", narrative, "us", out_dir)
+    html = fill_chart_block(html, "BTC", "btc_chart.png", narrative, "btc", out_dir)
 
     slots = {
         "vol": f"VOL.{vol_num:02d}",
@@ -176,8 +185,6 @@ def main():
     for key, val in slots.items():
         html = html.replace(f"{{{{{key}}}}}", val)
 
-    out_dir = os.path.join(DOCS_DIR, end_str)
-    os.makedirs(out_dir, exist_ok=True)
     out_path = os.path.join(out_dir, "index.html")
     with open(out_path, "w", encoding="utf-8") as f:
         f.write(html)
