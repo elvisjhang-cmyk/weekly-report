@@ -79,10 +79,15 @@ def build_roster(stocks):
     return "\n".join(lines)
 
 
+TLDR_TARGETS = ["#sec-us", "#sec-btc", "#sec-rotation", "#sec-next"]
+
+
 def build_tldr(items):
     lines = []
     for i, text in enumerate(items, 1):
-        lines.append(f'    <li data-i="{i:02d}">{text}</li>')
+        target = TLDR_TARGETS[i - 1] if i - 1 < len(TLDR_TARGETS) else None
+        inner = f'<a href="{target}">{text}</a>' if target else text
+        lines.append(f'    <li data-i="{i:02d}">{inner}</li>')
     return "\n".join(lines)
 
 
