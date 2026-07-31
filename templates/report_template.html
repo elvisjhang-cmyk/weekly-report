@@ -201,13 +201,14 @@
     <span class="temp-tag {{btc_tag_class}}">{{btc_tag_label}}</span>
     <h2 class="sec-title">{{btc_title}}</h2>
   </div>
-{{btc_body}}
+{{btc_body_lead}}
 <!--CHART_BTC_START-->
   <figure class="chart">
     <img src="{{chart_btc_file}}" alt="{{chart_btc_alt}}">
     <figcaption><span class="cap-tag">{{chart_btc_tag}}</span>{{caption_btc}}</figcaption>
   </figure>
 <!--CHART_BTC_END-->
+{{btc_body_rest}}
   <div class="levels">
 {{btc_levels}}
   </div>
@@ -216,7 +217,7 @@
 <section id="sec-rotation">
   <div class="sec-head">
     <span class="temp-tag hot">最熱話題 HOT</span>
-    <h2 class="sec-title">資金輪動：錢沒有離開，只是搬家了</h2>
+    <h2 class="sec-title">{{rotation_title}}</h2>
   </div>
 {{rotation_body}}
 

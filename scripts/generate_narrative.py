@@ -43,6 +43,7 @@ NARRATIVE_SCHEMA = {
         "btc_tag_label": {"type": "string"},
         "btc_title": {"type": "string"},
         "btc_body": {"type": "array", "items": {"type": "string"}},
+        "rotation_title": {"type": "string"},
         "rotation_body": {"type": "array", "items": {"type": "string"}},
         "watchlist": {"type": "array", "items": {"type": "string"}, "minItems": 4, "maxItems": 4},
         "poll_question": {"type": "string"},
@@ -61,7 +62,7 @@ NARRATIVE_SCHEMA = {
         "headline", "dek", "tldr_items",
         "us_tag_class", "us_tag_label", "us_title", "us_body",
         "btc_tag_class", "btc_tag_label", "btc_title", "btc_body",
-        "rotation_body", "watchlist", "poll_question", "poll_options", "footer_note",
+        "rotation_title", "rotation_body", "watchlist", "poll_question", "poll_options", "footer_note",
     ],
 }
 

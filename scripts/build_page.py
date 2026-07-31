@@ -114,17 +114,36 @@ def strip_block(html, start_marker, end_marker):
     return html[:start] + html[end + len(end_marker):]
 
 
-def fill_chart_block(html, tag, chart_filename, narrative, root_key, out_dir):
+def fill_chart_block(html, tag, chart_filename, narrative, root_key, out_dir, end_str, history):
     """
     GitHub Pages 只發布 docs/ 底下的內容,charts/ 在 repo 根目錄不會被發布,
     所以圖片要複製進當週的輸出資料夾,用同目錄的檔名參照,不能用 ../charts/ 這種路徑。
+
+    charts/ 裡的圖不會被移走(同一週改稿要重跑 build_page.py 很多次,
+    圖不能第一次跑完就消失)。但如果這個檔名上次記錄的週別跟這次不一樣,
+    代表 Elvis 忘記換圖了,舊圖不能被誤植到新一週的頁面上,這種情況視同缺圖處理。
     """
     start_marker = f"<!--CHART_{tag}_START-->"
     end_marker = f"<!--CHART_{tag}_END-->"
     chart_path = os.path.join(CHARTS_DIR, chart_filename)
+    chart_weeks = history.setdefault("chart_week_used", {})
+    last_used_week = chart_weeks.get(chart_filename)
+
     if not os.path.exists(chart_path):
         return strip_block(html, start_marker, end_marker)
+    if last_used_week is not None and last_used_week != end_str:
+        print(
+            f"[warn] {chart_filename} 上次是給 {last_used_week} 那週用的,"
+            f"這次是 {end_str},看起來是忘記換圖了 → 這週先當作沒有圖處理",
+            file=sys.stderr,
+        )
+        return strip_block(html, start_marker, end_marker)
+
+    chart_weeks[chart_filename] = end_str
     shutil.copyfile(chart_path, os.path.join(out_dir, chart_filename))
+    archive_dir = os.path.join(CHARTS_DIR, "archive")
+    os.makedirs(archive_dir, exist_ok=True)
+    shutil.copyfile(chart_path, os.path.join(archive_dir, f"{end_str}_{chart_filename}"))
     html = html.replace(start_marker, "").replace(end_marker, "")
     html = html.replace(f"{{{{chart_{root_key}_file}}}}", chart_filename)
     html = html.replace(f"{{{{chart_{root_key}_alt}}}}", narrative.get(f"chart_{root_key}_alt", ""))
@@ -149,7 +168,6 @@ def main():
         vol_by_week[end_str] = history.get("vol", 0) + 1
         history["vol"] = vol_by_week[end_str]
     vol_num = vol_by_week[end_str]
-    save_history(history)
 
     start_dt = datetime.strptime(start_str, "%Y-%m-%d")
     end_dt = datetime.strptime(end_str, "%Y-%m-%d")
@@ -162,8 +180,9 @@ def main():
     with open(TEMPLATE_PATH, "r", encoding="utf-8") as f:
         html = f.read()
 
-    html = fill_chart_block(html, "US", "spy_chart.png", narrative, "us", out_dir)
-    html = fill_chart_block(html, "BTC", "btc_chart.png", narrative, "btc", out_dir)
+    html = fill_chart_block(html, "US", "spy_chart.png", narrative, "us", out_dir, end_str, history)
+    html = fill_chart_block(html, "BTC", "btc_chart.png", narrative, "btc", out_dir, end_str, history)
+    save_history(history)
 
     slots = {
         "vol": f"VOL.{vol_num:02d}",
@@ -180,8 +199,10 @@ def main():
         "btc_tag_class": narrative["btc_tag_class"],
         "btc_tag_label": narrative["btc_tag_label"],
         "btc_title": narrative["btc_title"],
-        "btc_body": build_body(narrative["btc_body"]),
+        "btc_body_lead": build_body(narrative["btc_body"][:1]),
+        "btc_body_rest": build_body(narrative["btc_body"][1:]),
         "btc_levels": build_btc_levels(btc, narrative.get("btc_levels_override")),
+        "rotation_title": narrative["rotation_title"],
         "rotation_body": build_body(narrative["rotation_body"]),
         "roster_hot_title": f'{config.SECTOR_NAMES[datapack["leaders"]["sector"]]}|走得穩的',
         "roster_hot": build_roster(datapack["leaders"]["stocks"]),

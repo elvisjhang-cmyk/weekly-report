@@ -73,7 +73,9 @@ datapack 的數據來源是 ETF 報價(SPY/QQQ/IWM),不是指數本身(SPY ≈ �
 
 ## 輸出格式
 
-輸出 JSON,對應以下欄位:`headline`、`dek`、`tldr_items`(4 條)、`us_tag_class`、`us_tag_label`、`us_title`、`us_body`(段落陣列)、`btc_tag_class`、`btc_tag_label`、`btc_title`、`btc_body`(段落陣列)、`rotation_body`(段落/條列陣列)、`watchlist`(4 條)、`poll_question`、`poll_options`(3 個 {key,text})、`footer_note`。
+輸出 JSON,對應以下欄位:`headline`、`dek`、`tldr_items`(4 條)、`us_tag_class`、`us_tag_label`、`us_title`、`us_body`(段落陣列)、`btc_tag_class`、`btc_tag_label`、`btc_title`、`btc_body`(段落陣列)、`rotation_title`、`rotation_body`(段落/條列陣列)、`watchlist`(4 條)、`poll_question`、`poll_options`(3 個 {key,text})、`footer_note`。
+
+`rotation_title` 是資金輪動段落的標題,跟 `us_title`/`btc_title` 一樣,每週要重寫成符合當週資金流向故事的標語,不能每週都用同一句(這是之前發生過的真實 bug:這個標題曾經被寫死在模板裡,好幾週都沒變)。
 
 ## 產出前自我檢查(嚴謹度檢查清單)
 

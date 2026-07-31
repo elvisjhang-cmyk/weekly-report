@@ -49,4 +49,11 @@ TICKER_DOMAINS = {
     "NKE": "nike.com",
     "AMZN": "amazon.com",
     "BKNG": "booking.com",
+    "TJX": "tjx.com",
+    "SBUX": "starbucks.com",
+    "AEP": "aep.com",
+    "XEL": "xcelenergy.com",
+    "EXC": "exeloncorp.com",
+    "CEG": "constellationenergy.com",
+    "SRE": "sempra.com",
 }
