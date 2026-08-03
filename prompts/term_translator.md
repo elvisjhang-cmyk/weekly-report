@@ -15,4 +15,4 @@
 
 ---
 
-生成後的成品如果好用,記得順手加進 [style_examples/glossary.md](../style_examples/glossary.md),變成累積的詞庫。
+生成後的成品如果好用,記得順手加進 [writing_rules/glossary.md](../writing_rules/glossary.md),變成累積的詞庫。

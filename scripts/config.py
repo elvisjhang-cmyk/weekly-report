@@ -57,3 +57,6 @@ TICKER_DOMAINS = {
     "CEG": "constellationenergy.com",
     "SRE": "sempra.com",
 }
+
+# 每週投票用的 Google 表單(嵌入用),題目/選項每週去表單後台改,連結固定不用動
+GOOGLE_FORM_EMBED_SRC = "https://docs.google.com/forms/d/e/1FAIpQLSeondxmAqPE6wFsGkRRe1FcNWH3uxbyx60UpR-NYdsEBVALnA/viewform?embedded=true"

@@ -95,13 +95,6 @@ def build_watchlist(items):
     return "\n".join(f"    <li>{t}</li>" for t in items)
 
 
-def build_poll_options(options):
-    lines = []
-    for o in options:
-        lines.append(f'  <button class="opt"><span class="key">{o["key"]}</span>{o["text"]}</button>')
-    return "\n".join(lines)
-
-
 def build_body(paragraphs):
     return "\n".join(paragraphs)
 
@@ -210,7 +203,7 @@ def main():
         "roster_cold": build_roster(datapack["laggards"]["stocks"]),
         "watchlist": build_watchlist(narrative["watchlist"]),
         "poll_question": narrative["poll_question"],
-        "poll_options": build_poll_options(narrative["poll_options"]),
+        "poll_form_src": config.GOOGLE_FORM_EMBED_SRC,
         "footer_note": narrative["footer_note"],
     }
 
@@ -220,6 +213,11 @@ def main():
     out_path = os.path.join(out_dir, "index.html")
     with open(out_path, "w", encoding="utf-8") as f:
         f.write(html)
+
+    # 存檔案:datapack/narrative 跟著這週的輸出資料夾一起留底,
+    # 之後想回頭查某一週的原始數據/敘事,不用挖 git log
+    shutil.copyfile(os.path.join(ROOT, config.DATAPACK_FILE), os.path.join(out_dir, "datapack.json"))
+    shutil.copyfile(os.path.join(ROOT, "narrative.json"), os.path.join(out_dir, "narrative.json"))
 
     print(f"完成 → {out_path}")
 

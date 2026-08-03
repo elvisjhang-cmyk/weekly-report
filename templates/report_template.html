@@ -135,14 +135,7 @@
     padding:26px 24px;margin-top:8px;}
   .poll h2{font-family:'Noto Serif TC',serif;font-weight:900;font-size:22px;margin-bottom:6px;}
   .poll .q{color:var(--ink-soft);font-size:15px;margin-bottom:18px;}
-  .opt{
-    display:block;width:100%;text-align:left;background:var(--paper);
-    border:1.5px solid var(--line);border-radius:10px;
-    padding:13px 16px;margin-bottom:10px;font-size:15px;font-family:inherit;
-    cursor:pointer;transition:all .15s;line-height:1.6;
-  }
-  .opt:hover{border-color:var(--ink);transform:translateX(3px);}
-  .opt .key{font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--hot);margin-right:8px;}
+  .poll-form iframe{width:100%;border:none;border-radius:10px;display:block;}
   .poll-cta{font-size:14px;color:var(--ink-soft);margin-top:14px;}
 
   /* charts */
@@ -251,8 +244,10 @@
 <div class="poll">
   <h2>換你說說</h2>
   <p class="q">{{poll_question}}</p>
-{{poll_options}}
-  <p class="poll-cta">留言告訴我你選哪個+為什麼，下週我挑幾個留言來聊 👇<br>另外：<b>你希望下週多分析哪個標的？</b>留言點菜，票多的加菜。</p>
+  <div class="poll-form">
+    <iframe src="{{poll_form_src}}" width="640" height="428" frameborder="0" marginheight="0" marginwidth="0">載入中…</iframe>
+  </div>
+  <p class="poll-cta">選好之後留言告訴我為什麼，下週我挑幾個留言來聊 👇<br>另外：<b>你希望下週多分析哪個標的？</b>留言點菜，票多的加菜。</p>
 </div>
 
 <footer>

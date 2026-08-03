@@ -2,7 +2,7 @@
 呼叫 Anthropic API 生成本週敘事:datapack.json → narrative.json
 
 兩階段:
-  Stage 1 (draft)  用 system_prompt.md 的規則 + style_examples 產出初稿
+  Stage 1 (draft)  用 system_prompt.md 的規則 + writing_rules 產出初稿
   Stage 2 (review) 把初稿丟回去,依照 system prompt 裡的「產出前自我檢查」清單校對,
                     有問題就重寫該段落,輸出修正後的最終版本
 
@@ -20,10 +20,10 @@ import config
 import anthropic
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SCRIPTS_DIR = os.path.dirname(os.path.abspath(__file__))
-SYSTEM_PROMPT_PATH = os.path.join(SCRIPTS_DIR, "system_prompt.md")
-GLOSSARY_PATH = os.path.join(ROOT, "style_examples", "glossary.md")
-STYLE_EXAMPLE_PATH = os.path.join(ROOT, "style_examples", "v2_example.md")
+WRITING_RULES_DIR = os.path.join(ROOT, "writing_rules")
+SYSTEM_PROMPT_PATH = os.path.join(WRITING_RULES_DIR, "system_prompt.md")
+GLOSSARY_PATH = os.path.join(WRITING_RULES_DIR, "glossary.md")
+STYLE_EXAMPLE_PATH = os.path.join(WRITING_RULES_DIR, "v2_example.md")
 DATAPACK_PATH = os.path.join(ROOT, config.DATAPACK_FILE)
 NARRATIVE_PATH = os.path.join(ROOT, "narrative.json")
 
