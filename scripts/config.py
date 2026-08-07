@@ -56,6 +56,13 @@ TICKER_DOMAINS = {
     "EXC": "exeloncorp.com",
     "CEG": "constellationenergy.com",
     "SRE": "sempra.com",
+    "ORCL": "oracle.com",
+    "NVDA": "nvidia.com",
+    "AVGO": "broadcom.com",
+    "MSFT": "microsoft.com",
+    "CSCO": "cisco.com",
+    "MPC": "marathonpetroleum.com",
+    "VLO": "valero.com",
 }
 
 # 每週投票用的 Google 表單(嵌入用),題目/選項每週去表單後台改,連結固定不用動
