@@ -3,6 +3,13 @@
 所有計算都在這裡完成(零 AI token),AI 只吃 datapack.json 產生敘事。
 
 用法: python3 scripts/fetch_data.py
+      AS_OF_DATE=2026-08-07 python3 scripts/fetch_data.py   # 補算/校正某個已結束的週,不受「今天」影響
+
+沒設 AS_OF_DATE 時行為不變:一律以執行當下最新可用的資料算「這週」。
+這在週五以外的日子(例如週一)重跑會有問題──BTC 週日也有交易,週一一開盤
+resample 就會多出一個新的週線 bucket,「這週」會被誤判成剛開始的新的一週,
+而不是上週五才結束的那一週。設定 AS_OF_DATE 可以把資料截到指定日期為止,
+確保抓到的是那週的完整、最終數字。
 """
 import json
 import os
@@ -20,12 +27,18 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 HISTORY_PATH = os.path.join(ROOT, config.HISTORY_FILE)
 DATAPACK_PATH = os.path.join(ROOT, config.DATAPACK_FILE)
 
+AS_OF_DATE = os.environ.get("AS_OF_DATE")  # "YYYY-MM-DD",空字串/未設定 = 用今天
+
 
 def get_daily_history(ticker, period="14mo"):
     df = yf.Ticker(ticker).history(period=period, auto_adjust=False)
     if df.empty:
         raise RuntimeError(f"{ticker} 抓不到資料(yfinance 回傳空)")
     df.index = df.index.tz_localize(None)
+    if AS_OF_DATE:
+        df = df[df.index <= pd.Timestamp(AS_OF_DATE)]
+        if df.empty:
+            raise RuntimeError(f"{ticker} 在 AS_OF_DATE={AS_OF_DATE} 之前沒有資料")
     return df
 
 
@@ -235,8 +248,8 @@ def main():
         history["btcd_last"] = btcd
     save_history(history)
 
-    today = datetime.now()
-    monday = today - timedelta(days=today.weekday())
+    anchor = datetime.strptime(AS_OF_DATE, "%Y-%m-%d") if AS_OF_DATE else datetime.now()
+    monday = anchor - timedelta(days=anchor.weekday())
     friday = monday + timedelta(days=4)
 
     datapack = {

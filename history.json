@@ -13,7 +13,7 @@
       "bottom3_streak": 0
     },
     "XLI": {
-      "top3_streak": 1,
+      "top3_streak": 0,
       "bottom3_streak": 0
     },
     "XLV": {
@@ -41,11 +41,11 @@
       "bottom3_streak": 0
     },
     "XLY": {
-      "top3_streak": 0,
+      "top3_streak": 2,
       "bottom3_streak": 0
     }
   },
-  "btcd_last": 56.63,
+  "btcd_last": 56.68,
   "vol": 3,
   "vol_by_week": {
     "2026-07-24": 1,

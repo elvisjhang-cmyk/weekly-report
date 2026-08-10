@@ -48,7 +48,7 @@ def build_us_levels(spy):
     return (
         f'    <div class="level up"><span class="dir">▲ 大格局壓力</span><span class="px">{fmt_price(lv["hi52"])}</span>(52週高)</div>\n'
         f'    <div class="level down"><span class="dir">▼ 大格局支撐</span><span class="px">{fmt_price(lv["lo52"])}</span>(52週低)</div>\n'
-        f'    <div class="level up"><span class="dir">◎ 下週先盯這裡</span><span class="px">{fmt_price(lv["ma50"])}</span>(50日線)</div>'
+        f'    <div class="level up"><span class="dir">◎ 這週先盯這裡</span><span class="px">{fmt_price(lv["ma50"])}</span>(50日線)</div>'
     )
 
 
@@ -60,8 +60,8 @@ def build_btc_levels(btc, override=None):
         )
     lv = btc["levels"]
     return (
-        f'    <div class="level up"><span class="dir">▲ 本週高點</span><span class="px">{fmt_price(lv["wk_hi"])}</span></div>\n'
-        f'    <div class="level down"><span class="dir">▼ 本週低點</span><span class="px">{fmt_price(lv["wk_lo"])}</span></div>'
+        f'    <div class="level up"><span class="dir">▲ 上週高點</span><span class="px">{fmt_price(lv["wk_hi"])}</span></div>\n'
+        f'    <div class="level down"><span class="dir">▼ 上週低點</span><span class="px">{fmt_price(lv["wk_lo"])}</span></div>'
     )
 
 
@@ -75,7 +75,7 @@ def build_roster(stocks):
             f'onerror="this.remove()">'
             if domain else ""
         )
-        lines.append(f'        <li>{logo}<span class="tk">{name}</span> 本週 {s["w"]:+.1f}%</li>')
+        lines.append(f'        <li>{logo}<span class="tk">{name}</span> 上週 {s["w"]:+.1f}%</li>')
     return "\n".join(lines)
 
 

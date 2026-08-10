@@ -63,6 +63,8 @@ TICKER_DOMAINS = {
     "CSCO": "cisco.com",
     "MPC": "marathonpetroleum.com",
     "VLO": "valero.com",
+    "ADBE": "adobe.com",
+    "PSX": "phillips66.com",
 }
 
 # 每週投票用的 Google 表單(嵌入用),題目/選項每週去表單後台改,連結固定不用動
